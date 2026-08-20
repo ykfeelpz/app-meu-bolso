@@ -1,4 +1,4 @@
-import { Text, TextInput , View, StyleSheed } from 'react-native';
+import { Text, TextInput , View, StyleSheet } from 'react-native';
 import { COLORS, SPACING, RADIUS} from '../constants/theme.js';
 
 export default function AppInput({ label, error, ...props }) {
@@ -13,8 +13,14 @@ export default function AppInput({ label, error, ...props }) {
 }
 
 const styles = StyleSheet.create({
-    container: {marginBottom: SPACING.md},
-    label: {color:COLORS.text, fontWeight:'600', marginBottom: 6},
+    container: {
+        marginBottom: SPACING.md
+    },
+    label: {
+        color:COLORS.text,
+        fontWeight:'600',
+        marginBottom: 6
+    },
     input: {
         backgroundColor: '#fff',
         borderWidth: 1,
@@ -23,6 +29,11 @@ const styles = StyleSheet.create({
         padding: SPACING.sm,
         fontSize: 16
     },
-    errorInput: {borderColor: COLORS.danger},
-    error: {color: COLORS.danger, fontSize: 12, marginTop: 4}
+    errorInput: {
+        borderColor: COLORS.danger
+    },
+    error: {
+        color: COLORS.danger,
+        fontSize: 12,
+        marginTop: 4}
 });

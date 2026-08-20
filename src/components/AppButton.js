@@ -1,6 +1,5 @@
 import { ActivityIndicator, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS, RADIUS, SPACING} from '../constants/theme.js';
-import 
 
 export default function AppButton (
     { title, onPress, loading=false, disabled=false }
@@ -14,17 +13,24 @@ export default function AppButton (
             >
             {loading ?
             <ActivityIndicator color="#fff" /> :
-            <Text style={styles.title>}>{title}</Text>} 
+            <Text style={styles.title}>{title}</Text>} 
             </TouchableOpacity>
-    );
+    ); 
 }
 
 const styles = StyleSheet.create({
-    button: {backgroundColor: COLORS.primary,
+    button: {
+        backgroundColor: COLORS.primary,
         padding: SPACING.md,
         borderRadius: RADIUS.md,
         alignItems: 'center',
     },
-    disabled: {opacity: .6},
-    text: {color: '#fff', fontSize: 16, fontWeight: '700'},
+    disabled: {
+        opacity: .6
+    },
+    text: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '700'
+    },
 });
