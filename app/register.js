@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Text, KeyboardAvoidingView, StyleSheet, Platform } from 'react-native';
+import { Text, KeyboardAvoidingView, StyleSheet, Platform, Alert } from 'react-native';
 import AppInput from '../src/components/AppInput.js';
 import AppButton from '../src/components/AppButton.js';
 
@@ -7,7 +7,16 @@ export default function Register() {
     const [email, setEmail]=useState('');
     const [password, setPassword]=useState('');
     const [confirm, setConfirm]=useState('');
-    const [loading, setLoading]=useState(false)
+    const [loading, setLoading]=useState(false);
+
+    async function handleRegister() {
+        if(!email.trim()||!password||!confirm)
+            return Alert.alert('Atenção', 'Preencha todos os campos');
+        if(password.lenght<6)
+            return Alert.alert('Atenção', 'A senha deve ter no mínimo 6 caracteres');
+        if(password!==confirm)
+            return Alert.alert('Atençaõ', "As senhas não conferem");
+    }
 
     return (
         <KeyboardAvoidingView style={styles.container}
@@ -19,7 +28,7 @@ export default function Register() {
             value={password} onChangeText={setPassword} />
             <AppInput label="Confirmar senha" secureTextEntry 
             value={confirm} onChangeText={setConfirm} />
-            <AppButton title="Criar conta" />
+            <AppButton title="Criar conta" onPress={handleRegister} loading={loading}/>
         </KeyboardAvoidingView>
     );
 }
