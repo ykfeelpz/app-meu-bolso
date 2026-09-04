@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import { Text, KeyboardAvoidingView, StyleSheet, Platform, Alert } from 'react-native';
 import AppInput from '../src/components/AppInput.js';
 import AppButton from '../src/components/AppButton.js';
+import { signUp } from '../src/services/authService.js';
+import { router } from 'expo-router';
 
 export default function Register() {
     const [email, setEmail]=useState('');
-    const [password, setPassword]=useState('');
+    const [password, setPassword]=useState(''); 
     const [confirm, setConfirm]=useState('');
     const [loading, setLoading]=useState(false);
 
@@ -16,6 +18,25 @@ export default function Register() {
             return Alert.alert('Atenção', 'A senha deve ter no mínimo 6 caracteres');
         if(password!==confirm)
             return Alert.alert('Atençaõ', "As senhas não conferem");
+
+        try {
+            setLoading(true);
+            const {data, error} = await signUp(email.trim(),password);
+            if(error) {
+                Alert.alert('Erro', error.message);
+                console.log('Erro', error.message);
+                return;
+            }
+            if(data.session) router.replace();
+            else {
+                Alert.alert('Cadastro realizado',
+                    'Confirme seu e-mail, se necessário.'
+                );
+                router.replace('/');
+            }
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
