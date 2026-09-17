@@ -1,5 +1,5 @@
 import { ActivityIndicator, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { COLORS, RADIUS, SPACING} from '../constants/theme.js';
+import { COLORS, RADIUS, SPACING } from '../constants/theme.js';
 
 export default function AppButton (
     { title, onPress, loading=false, disabled=false }
