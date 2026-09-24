@@ -17,7 +17,7 @@ export default function Register() {
         if(password.length<6)
             return Alert.alert('Atenção', 'A senha deve ter no mínimo 6 caracteres');
         if(password!==confirm)
-            return Alert.alert('Atenção', "As senhas não conferem");
+            return Alert.alert('Atenção', 'As senhas não conferem');
 
         try {
             setLoading(true);
@@ -30,7 +30,8 @@ export default function Register() {
             if(data.session) router.replace('/');
             else {
                 Alert.alert('Cadastro realizado',
-                    'Confirme seu e-mail, se necessário.'
+                    'Confirme seu e-mail, se necessário.',
+                    console.log('Cadastro realizado')
                 );
                 router.replace('/');
             }

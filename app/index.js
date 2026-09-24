@@ -1,14 +1,32 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import AppInput from '../src/components/AppInput.js';
 import AppButton from '../src/components/AppButton.js';
+import { signIn } from '../src/services/authService.js'
 
 export default function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+
+    async function handleLogin(){
+        if(!email.trim()||!password.trim()){
+            Alert.alert('Atenção', 'Informe e-mail e senha');
+            return;
+        } try {
+            setLoading(true);
+            const {error}=await signIn(email.trim(), password.trim());
+            if(error) {Alert.alert('Erro', error.message);
+                console.log('Erro', error.message);
+                return;
+            }
+            router.replace('/(app)/home');
+        } finally {
+            setLoading(false);
+        }
+    }
     
     const router = useRouter();
 
@@ -25,7 +43,7 @@ export default function Login() {
             <AppInput label="Senha" secureTextEntry placeholder="Digite sua senha"
             value={password} onChangeText={setPassword} />
 
-            <AppButton title="Entrar" loading={loading}/>
+            <AppButton title="Entrar" loading={loading} onPress={handleLogin}/>
             <TouchableOpacity onPress={() => router.push('/register')}>
                 <Text style={styles.link}>Criar nova conta</Text>
             </TouchableOpacity>
