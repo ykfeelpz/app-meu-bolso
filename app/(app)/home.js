@@ -2,6 +2,8 @@ import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import BalanceCard from '../../src/components/BalanceCard.js';
 import AppButton from '../../src/components/AppButton.js';
+import SummaryCard from '../../src/components/SummaryCard.js'; 
+import FloatingButton from '../../src/components/FloatingButton.js'; 
 
 export default function Home() {
     return (
@@ -10,10 +12,10 @@ export default function Home() {
                 <View>
                     <Text style={styles.title}>Meu Bolso</Text>
                     <Text style={styles.sub}>Resumo financeiro</Text>
+                </View>
                     <TouchableOpacity>
                         <Text style={styles.profile}>Perfil</Text>
                     </TouchableOpacity>
-                </View>
             </View>
 
             <BalanceCard balance={1000} />
@@ -21,9 +23,18 @@ export default function Home() {
             <AppButton title="Gerar relatório PDF"/>
 
             <View style={styles.row}>
-
+                <SummaryCard title="Receitas" value={10000} type="receita"/>
+                <SummaryCard title="Despesas" value={5000} type="despesa"/>
             </View>
+
+            <Text style={styles.section}>
+                Últimas transações
+            </Text>
+
+            <FloatingButton onPress={()=>router.push('/(app)/add-transaction.js')} />
+
         </View>
+
     );
 }
 
@@ -55,5 +66,10 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         marginHorizontal: -4
-    }
+    },
+    section: {
+        fontSize: 18,
+        fontWeight: '800',
+        marginVertical: 10
+    },
 });
